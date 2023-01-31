@@ -1,4 +1,4 @@
-@wip
+
 Feature: DB_sorgulama
   #Database baglantisi kurarak staff tablosundaki Id'lerin icinde "5" id numarasina sahip staff var mı kontrol edelim
 #SELECT * FROM u480337000_tlb_training.staff;
@@ -64,3 +64,20 @@ Feature: DB_sorgulama
     Examples:
       |id|adresi|
       |8| bolu  |
+
+    #Bir yonetici olarak DataBase üzerinden User kaydi olusturabilmeli,
+    # ve olusturdugum kayidin User listesinde oldugunu dogrulayabilmeliyim.
+    @wip
+    Scenario Outline:
+      * Database baglantisi kurulur.
+      * "<first_name>","<last_name>","<username>","<email>","<id>","<role_id>","<password>" girilerek user kaydi olusturulur
+      * Users tablosunda bulunan "<id>"ler listelenir
+      * Olusturulan userin listede oldugu dogrulanir
+      * Database baglantisi kapatilir.
+
+
+
+      Examples:
+      |first_name|last_name|username|email|id|role_id|password|
+      ||                   |        |     |  |       |        |
+

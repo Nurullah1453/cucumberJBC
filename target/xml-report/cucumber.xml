@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="0.791">
+    <testcase classname="DB_sorgulama" name="_2" time="0.204">
+        <failure message="The scenario has pending or undefined step(s)" type="java.lang.Exception"><![CDATA[* Database baglantisi kurulur...............................................passed
+* "","","","","","","" girilerek user kaydi olusturulur.....................passed
+* Users tablosunda bulunan ""ler listelenir.................................undefined
+* Olusturulan userin listede oldugu dogrulanir..............................skipped
+* Database baglantisi kapatilir.............................................skipped
+]]></failure>
+    </testcase>
+</testsuite>
