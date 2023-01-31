@@ -6,14 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DBUtils1 {
+public class DBUtils {
     private static Connection connection;
     private static Statement statement;
     private static ResultSet resultSet;
+
     //BU METHOD COK KULLANACAGIZ
     //createConnection database e baglanmak icin. Burda url, username, password u kullanarak database baglaniyoruz
     //Database e ne zaman baglanmak isterse bu methodu cagrabiliriz
     //Bu method u data cok BeforeMethod icinde setup icin kullanacagiz
+
     public static void createConnection() {
         String url="jdbc:mysql://45.84.206.41:3306/u480337000_tlb_training";
         String username="u480337000_tbl_training_u";
@@ -25,6 +27,7 @@ public class DBUtils1 {
             e.printStackTrace();
         }
     }
+
     //BU METHODU COK KULLANACAGIZ
     //Bu method DatabaDBUTilsse e baglandiktan sonra Yazilan query yi calistirmak icin
     //Bu method da statement ve resultset objesini olusturup query run ediyoruz
@@ -42,6 +45,7 @@ public class DBUtils1 {
             e.printStackTrace();
         }
     }
+
     //Database baglantisini sonlandirmak icin. Bu Mehtod u test tamamladiktan sonra kullaniriz
     public static void closeConnection() {
         try {
@@ -58,6 +62,7 @@ public class DBUtils1 {
             e.printStackTrace();
         }
     }
+
     //Sonraki 3 methodu sadece connection,statement,resultset kullanmak istedigimizde kullaniriz
     //connection =>DBUtils.getConnection()
     //statement => DBUtils.getResultset()
@@ -72,11 +77,13 @@ public class DBUtils1 {
         }
         return statement;
     }
+
     //getConnection method Connection object i olusturmak icin. Bu method create createConnectiondan farkli olarak connection objesi return ediyor
     public static Connection getConnection() {
-        String url="jdbc:sqlserver://184.168.194.58:1433;databaseName=hotelmycamp ; user=techproed;password=P2s@rt65";
-        String username="techproed";
-        String password="P2s@rt65";
+
+        String url="jdbc:mysql://45.84.206.41:3306/u480337000_tlb_training";
+        String username="u480337000_tbl_training_u";
+        String password="pO9#4bmxU";
         try {
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
@@ -85,6 +92,7 @@ public class DBUtils1 {
         }
         return connection;
     }
+
     //getResultset method Resultset object i olusturmak icin.
     public static ResultSet getResultset() {
         try {
@@ -101,11 +109,13 @@ public class DBUtils1 {
         int rowCount = resultSet.getRow();
         return rowCount;
     }
+
     /**
      * @return returns a single cell value. If the results in multiple rows and/or
      *         columns of data, only first column of the first row will be returned.
      *         The rest of the data will be ignored
      */
+
     public static Object getCellValue(String query) {
         return getQueryResultList(query).get(0).get(0);
     }
@@ -114,6 +124,7 @@ public class DBUtils1 {
      *         results in multiple rows and/or columns of data, only first row will
      *         be returned. The rest of the data will be ignored
      */
+
     public static List<Object> getRowList(String query) {
 
         return getQueryResultList(query).get(0);
@@ -123,6 +134,7 @@ public class DBUtils1 {
      *         name. If the query results in multiple rows and/or columns of data,
      *         only first row will be returned. The rest of the data will be ignored
      */
+
     public static Map<String, Object> getRowMap(String query) {
 
         return getQueryResultMap(query).get(0);
@@ -131,6 +143,7 @@ public class DBUtils1 {
      * @return returns query result in a list of lists where outer list represents
      *         collection of rows and inner lists represent a single row
      */
+
     public static List<List<Object>> getQueryResultList(String query) {
         executeQuery(query);
         List<List<Object>> rowList = new ArrayList<>();
@@ -153,6 +166,7 @@ public class DBUtils1 {
     /**
      * @return list of values of a single column from the result set
      */
+
     public static List<Object> getColumnData(String query, String column) {
         executeQuery(query);
         List<Object> rowList = new ArrayList<>();
@@ -173,6 +187,7 @@ public class DBUtils1 {
      *         collection of rows and a map represents represent a single row with
      *         key being the column name
      */
+
     public static List<Map<String, Object>> getQueryResultMap(String query) {
         executeQuery(query);
         List<Map<String, Object>> rowList = new ArrayList<>();
@@ -193,7 +208,6 @@ public class DBUtils1 {
         return rowList;
     }
 
-
     /*
      * @return List of columns returned in result set
      */
@@ -212,5 +226,16 @@ public class DBUtils1 {
         }
         return columns;
     }
+
+    public static synchronized void update(String query) throws SQLException {
+        Statement st = connection.createStatement();
+        int ok = st.executeUpdate(query);
+        if (ok == -1) {
+            throw new SQLException("DB problem with query: " + query);
+        }
+        st.close();
+    }
+
+
 
 }
